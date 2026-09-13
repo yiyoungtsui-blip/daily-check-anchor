@@ -57,9 +57,9 @@
   .tabs { display: flex; gap: 6px; padding: 4px; margin-bottom: 14px;
           background: #171a21; border: 1px solid var(--line); border-radius: 13px; }
   .tab {
-    flex: 1; padding: 9px 6px; border: none; border-radius: 10px;
-    background: transparent; color: var(--dim); font: inherit; font-size: 15px;
-    cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 7px;
+    flex: 1; padding: 9px 4px; border: none; border-radius: 10px;
+    background: transparent; color: var(--dim); font: inherit; font-size: 14px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px;
   }
   .tab.on { background: #262b36; color: var(--text); font-weight: 600; }
   .pill {
@@ -165,7 +165,11 @@
   var UNDO_WINDOW_MS = 2 * 60 * 1000;
   var KEY = "daily-check-anchor/v1";
 
-  var MODULES = [{ id: "home", name: "家里" }, { id: "phone", name: "手机" }];
+  var MODULES = [
+    { id: "home", name: "家里" },
+    { id: "phone", name: "手机" },
+    { id: "work", name: "电脑" }
+  ];
 
   // 不写 rule 的默认是“每天一次”
   var ITEMS = [
@@ -188,7 +192,12 @@
     { m: "phone", id: "ticktick",  name: "滴答清单", hint: "要做的事丢进提醒事项",      rule: { type: "interval", days: 2 } },
     { m: "phone", id: "reminders", name: "提醒事项", hint: "按优先级排好序,之后照着做" },
     { m: "phone", id: "photos",    name: "照片",     hint: "看一次,顺手清理" },
-    { m: "phone", id: "wechat",    name: "微信消息", hint: "整理,剩下的明天再说",       rule: { type: "daily", max: 2 } }
+    { m: "phone", id: "wechat",    name: "微信消息", hint: "整理,剩下的明天再说",       rule: { type: "daily", max: 2 } },
+
+    { m: "work", id: "craft",   name: "专业人士修炼", hint: "早上选出今天的 top 3,按这个专心干" },
+    { m: "work", id: "finder",  name: "访达",         hint: "理一下桌面和下载",           rule: { type: "interval", days: 2 } },
+    { m: "work", id: "msgs",    name: "电脑消息",     hint: "下班前后看一次,用来 review 待办" },
+    { m: "work", id: "email",   name: "邮件",         hint: "下班前后看重要信息和报名活动" }
   ];
   ITEMS.forEach(function (i) { if (!i.rule) i.rule = { type: "daily", max: 1 }; });
 
@@ -437,7 +446,7 @@
 
   // ---------- 启动 ----------
   state = load();
-  activeTab = state.tab === "phone" ? "phone" : "home";
+  activeTab = MODULES.some(function (m) { return m.id === state.tab; }) ? state.tab : "home";
   var tk = dayKey(Date.now());
   state.opens[tk] = (state.opens[tk] || 0) + 1;
   Object.keys(state.opens).forEach(function (k) { if (k < shiftKey(tk, -30)) delete state.opens[k]; });
