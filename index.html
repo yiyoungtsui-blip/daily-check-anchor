@@ -19,7 +19,6 @@
     --dimmer: #5c6373;
     --green: #4ba871;
     --green-soft: #1e2b23;
-    --accent: #6b8cff;
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body { margin: 0; padding: 0; background: var(--bg); }
@@ -37,14 +36,14 @@
 
   /* ---- 顶部锚点 ---- */
   .anchor {
-    margin: 10px 0 26px;
-    padding: 22px 20px;
+    margin: 10px 0 18px;
+    padding: 21px 20px;
     border-radius: 18px;
     background: var(--card);
     border: 1px solid var(--line);
   }
   .anchor.calm { background: var(--green-soft); border-color: #2c4636; }
-  .anchor h1 { margin: 0; font-size: 23px; font-weight: 650; letter-spacing: -.01em; }
+  .anchor h1 { margin: 0; font-size: 22px; font-weight: 650; letter-spacing: -.01em; }
   .anchor .sub { margin-top: 10px; font-size: 14.5px; color: var(--dim); }
   .anchor.calm .sub { color: #9fc4ac; }
   .anchor .stamp {
@@ -54,11 +53,33 @@
   }
   .anchor.calm .stamp { background: rgba(75,168,113,.16); color: #7fc79b; }
 
+  /* ---- 模块切换 ---- */
+  .tabs { display: flex; gap: 6px; padding: 4px; margin-bottom: 14px;
+          background: #171a21; border: 1px solid var(--line); border-radius: 13px; }
+  .tab {
+    flex: 1; padding: 9px 6px; border: none; border-radius: 10px;
+    background: transparent; color: var(--dim); font: inherit; font-size: 15px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 7px;
+  }
+  .tab.on { background: #262b36; color: var(--text); font-weight: 600; }
+  .pill {
+    min-width: 20px; padding: 1px 6px; border-radius: 999px;
+    font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums;
+    background: #39404e; color: #c3cad8;
+  }
+  .pill.ok { background: rgba(75,168,113,.2); color: var(--green); }
+
+  .banner {
+    margin-bottom: 12px; padding: 10px 14px; border-radius: 12px;
+    background: var(--green-soft); border: 1px solid #2c4636;
+    color: #8fc4a6; font-size: 13.5px;
+  }
+
   /* ---- 检查项 ---- */
   .item {
     display: flex; align-items: center; gap: 14px;
     width: 100%; text-align: left;
-    padding: 15px 16px; margin-bottom: 10px;
+    padding: 14px 16px; margin-bottom: 9px;
     background: var(--card); border: 1px solid var(--line);
     border-radius: 15px; color: inherit; font: inherit;
     cursor: pointer; transition: transform .08s ease;
@@ -66,10 +87,8 @@
   .item:active { transform: scale(.985); }
   .item.done, .item.locked { background: var(--card-done); border-color: #23262e; cursor: default; }
 
-  .box {
-    flex: none; width: 26px; height: 26px; border-radius: 9px;
-    border: 2px solid var(--dimmer); position: relative;
-  }
+  .box { flex: none; width: 26px; height: 26px; border-radius: 9px;
+         border: 2px solid var(--dimmer); position: relative; }
   .done .box, .locked .box { border-color: var(--green); background: var(--green); }
   .done .box::after, .locked .box::after {
     content: ""; position: absolute; left: 7.5px; top: 3.5px;
@@ -89,24 +108,23 @@
   .meta { font-size: 13px; color: var(--dimmer); margin-top: 2px; font-variant-numeric: tabular-nums; }
   .done .meta { color: #6f9d81; }
 
-  .undo {
-    flex: none; padding: 6px 12px; border-radius: 999px;
-    background: rgba(255,255,255,.07); border: none; color: var(--dim);
-    font: inherit; font-size: 13px; cursor: pointer;
-  }
+  .undo { flex: none; padding: 6px 12px; border-radius: 999px;
+          background: rgba(255,255,255,.07); border: none; color: var(--dim);
+          font: inherit; font-size: 13px; cursor: pointer; }
 
-  /* 随时可勾、但不算进“今天还剩几项”的项目 */
-  .item.adhoc { background: transparent; border-style: dashed; border-color: #2b303b; }
-  .item.adhoc .name { color: var(--dim); font-weight: 500; }
-  .item.adhoc .box { border-color: #333845; background: transparent; }
-  .item.adhoc .box::after {
-    content: ""; position: absolute;
-    left: 4px; top: 9px; width: 10px; height: 0;
-    border-top: 2.5px solid #4a5060;
+  /* ---- 二选一(阳台) ---- */
+  .item.choice { display: block; cursor: default; }
+  .choice-head { display: flex; align-items: center; gap: 14px; }
+  .choice-opts { display: flex; flex-direction: column; gap: 8px; margin-top: 13px; }
+  .opt {
+    padding: 11px 14px; border-radius: 11px; font: inherit; font-size: 14.5px;
+    text-align: left; border: 1px solid var(--line);
+    background: rgba(255,255,255,.05); color: var(--text); cursor: pointer;
   }
+  .opt:active { background: rgba(255,255,255,.11); }
 
   /* ---- 历史 ---- */
-  details { margin-top: 30px; }
+  details { margin-top: 28px; }
   summary { font-size: 14px; color: var(--dimmer); cursor: pointer; list-style: none; padding: 8px 0; }
   summary::-webkit-details-marker { display: none; }
   summary::before { content: "▸ "; }
@@ -116,7 +134,7 @@
   .log { font-size: 13.5px; color: var(--dim); font-variant-numeric: tabular-nums; padding: 2px 0; }
   .log b { color: var(--text); font-weight: 500; }
 
-  footer { margin-top: 34px; font-size: 12.5px; color: var(--dimmer); line-height: 1.7; }
+  footer { margin-top: 32px; font-size: 12.5px; color: var(--dimmer); line-height: 1.7; }
   footer a { color: var(--dimmer); text-decoration: underline; cursor: pointer; }
 </style>
 </head>
@@ -124,10 +142,12 @@
 
 <div class="date" id="date"></div>
 <section class="anchor" id="anchor"></section>
+<div class="tabs" id="tabs"></div>
+<div id="banner"></div>
 <div id="list"></div>
 
 <details>
-  <summary id="histLabel">最近的打勾记录</summary>
+  <summary>最近的打勾记录</summary>
   <div id="hist"></div>
 </details>
 
@@ -145,16 +165,38 @@
   var UNDO_WINDOW_MS = 2 * 60 * 1000;
   var KEY = "daily-check-anchor/v1";
 
+  var MODULES = [{ id: "home", name: "家里" }, { id: "phone", name: "手机" }];
+
+  // 不写 rule 的默认是“每天一次”
   var ITEMS = [
-    { id: "ticktick",  name: "滴答清单", hint: "要做的事丢进提醒事项",      rule: { type: "interval", days: 2 } },
-    { id: "reminders", name: "提醒事项", hint: "按优先级排好序,之后照着做", rule: { type: "daily", max: 1 } },
-    { id: "photos",    name: "照片",     hint: "看一次,顺手清理",           rule: { type: "daily", max: 1 } },
-    { id: "wechat",    name: "微信消息", hint: "整理,剩下的明天再说",       rule: { type: "daily", max: 2 } },
-    { id: "sms",       name: "短信",     hint: "超过 10 条再看,没到不用管", rule: { type: "adhoc" } }
+    { m: "home", id: "balcony", name: "阳台", rule: { type: "choice" }, choices: [
+        { id: "empty",  label: "衣服都收走了,暂时没有要洗的" },
+        { id: "washed", label: "衣服都收走了,也洗好晾上了" } ] },
+    { m: "home", id: "tv",        name: "电视柜", hint: "台面整洁" },
+    { m: "home", id: "table",     name: "茶几",   hint: "台面擦干净" },
+    { m: "home", id: "sofa",      name: "沙发",   hint: "表面干净" },
+    { m: "home", id: "shoes",     name: "鞋架",   hint: "摆放整齐" },
+    { m: "home", id: "desk",      name: "书桌",   hint: "台面整洁" },
+    { m: "home", id: "fridge",    name: "冰箱",   hint: "没有过期食品" },
+    { m: "home", id: "door",      name: "门口",   hint: "垃圾归拢好" },
+    { m: "home", id: "guest",     name: "客房",   hint: "整洁" },
+    { m: "home", id: "kitchen",   name: "厨房",   hint: "整洁" },
+    { m: "home", id: "bath",      name: "卫生间", hint: "整洁" },
+    { m: "home", id: "bedroom",   name: "卧室",   hint: "整洁" },
+    { m: "home", id: "sofacover", name: "沙发套", hint: "阶段性清洗", rule: { type: "interval", days: 30 } },
+
+    { m: "phone", id: "ticktick",  name: "滴答清单", hint: "要做的事丢进提醒事项",      rule: { type: "interval", days: 2 } },
+    { m: "phone", id: "reminders", name: "提醒事项", hint: "按优先级排好序,之后照着做" },
+    { m: "phone", id: "photos",    name: "照片",     hint: "看一次,顺手清理" },
+    { m: "phone", id: "wechat",    name: "微信消息", hint: "整理,剩下的明天再说",       rule: { type: "daily", max: 2 } }
   ];
+  ITEMS.forEach(function (i) { if (!i.rule) i.rule = { type: "daily", max: 1 }; });
+
+  // 已经删掉的项目,历史记录里还要能显示名字
+  var RETIRED = { sms: "短信", room: "房间" };
 
   // ---------- 存储 ----------
-  var state;
+  var state, activeTab;
   function load() {
     var raw;
     try { raw = localStorage.getItem(KEY); } catch (e) { raw = null; }
@@ -165,100 +207,78 @@
     if (!s.opens || typeof s.opens !== "object") s.opens = {};
     return s;
   }
-  function save() {
-    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
-  }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
 
   // ---------- 日期 ----------
+  function pad(n) { return n < 10 ? "0" + n : "" + n; }
   function dayKey(ts) {
     var d = new Date(ts - DAY_CUTOFF_HOUR * 3600e3);
     return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
   }
-  function pad(n) { return n < 10 ? "0" + n : "" + n; }
-  function keyToDate(k) {
-    var p = k.split("-");
-    return new Date(+p[0], +p[1] - 1, +p[2]);
-  }
+  function keyToDate(k) { var p = k.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); }
   function shiftKey(k, days) {
-    var d = keyToDate(k);
-    d.setDate(d.getDate() + days);
+    var d = keyToDate(k); d.setDate(d.getDate() + days);
     return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
   }
-  function clock(ts) {
-    var d = new Date(ts);
-    return pad(d.getHours()) + ":" + pad(d.getMinutes());
-  }
+  function clock(ts) { var d = new Date(ts); return pad(d.getHours()) + ":" + pad(d.getMinutes()); }
   function humanDay(k, today) {
     if (k === today) return "今天";
     if (k === shiftKey(today, -1)) return "昨天";
-    if (k === shiftKey(today, 1)) return "明天";
     var d = keyToDate(k);
     return (d.getMonth() + 1) + "月" + d.getDate() + "日";
   }
 
   // ---------- 状态推导 ----------
-  function eventsFor(id) {
-    return state.events.filter(function (e) { return e.id === id; });
-  }
   function todayCount(id, today) {
     return state.events.filter(function (e) { return e.id === id && dayKey(e.ts) === today; }).length;
   }
   function lastEvent(id) {
-    var list = eventsFor(id);
-    return list.length ? list[list.length - 1] : null;
+    for (var i = state.events.length - 1; i >= 0; i--) if (state.events[i].id === id) return state.events[i];
+    return null;
   }
 
-  // 返回 { open, done, waiting, label, last }
   function statusOf(item, today) {
-    var last = lastEvent(item.id);
-    var r = item.rule;
-
-    if (r.type === "daily") {
-      var n = todayCount(item.id, today);
-      if (n >= r.max) {
-        return { open: false, done: true, label: "今天 " + clock(last.ts) + " · 下次明天", last: last };
-      }
-      var label = r.max > 1
-        ? (n > 0 ? "今天第 " + n + " 次 " + clock(last.ts) + " · 还剩 1 次" : "今天可以 " + r.max + " 次")
-        : "今天还没有";
-      return { open: true, done: false, label: label, last: last };
-    }
+    var last = lastEvent(item.id), r = item.rule;
 
     if (r.type === "interval") {
-      if (!last) return { open: true, done: false, label: "还没开始", last: null };
-      var lastKey = dayKey(last.ts);
-      var dueKey = shiftKey(lastKey, r.days);
-      if (lastKey === today) {
-        return { open: false, done: true, last: last,
-                 label: "今天 " + clock(last.ts) + " · 下次 " + humanDay(dueKey, today) };
-      }
-      if (today < dueKey) {
-        return {
-          open: false, done: false, waiting: true, last: last,
-          label: "上次 " + humanDay(lastKey, today) + " " + clock(last.ts) + " · 下次 " + humanDay(dueKey, today)
-        };
-      }
-      return { open: true, done: false, label: "上次 " + humanDay(lastKey, today) + " · 今天该看了", last: last };
+      if (!last) return { open: true, label: "还没记过" };
+      var lastKey = dayKey(last.ts), dueKey = shiftKey(lastKey, r.days);
+      if (lastKey === today)
+        return { done: true, last: last, label: "今天 " + clock(last.ts) + " · 下次 " + humanDay(dueKey, today) };
+      if (today < dueKey)
+        return { waiting: true, last: last,
+                 label: "上次 " + humanDay(lastKey, today) + " · 下次 " + humanDay(dueKey, today) };
+      return { open: true, last: last, label: "上次 " + humanDay(lastKey, today) + " · 今天该看了" };
     }
 
-    // adhoc:自己判断什么时候该做,随时能勾,不催
-    return {
-      open: true, done: false, adhoc: true, last: last,
-      label: last ? "上次 " + humanDay(dayKey(last.ts), today) + " " + clock(last.ts) : "还没记过"
-    };
+    if (r.type === "choice") {
+      if (last && dayKey(last.ts) === today) {
+        var picked = null;
+        (item.choices || []).forEach(function (c) { if (c.id === last.choice) picked = c.label; });
+        return { done: true, last: last, label: "今天 " + clock(last.ts) + " · " + (picked || "已完成") };
+      }
+      return { open: true, choice: true, label: "两种状态都算完成,选一个" };
+    }
+
+    var n = todayCount(item.id, today);
+    if (n >= r.max) return { done: true, last: lastEvent(item.id), label: "今天 " + clock(last.ts) + " · 下次明天" };
+    if (r.max > 1 && n > 0)
+      return { open: true, last: last, label: "今天第 " + n + " 次 " + clock(last.ts) + " · 还剩 1 次" };
+    return { open: true, last: last, label: r.max > 1 ? "今天可以 " + r.max + " 次" : "今天还没有" };
   }
 
   // ---------- 交互 ----------
-  function check(id) {
-    state.events.push({ id: id, ts: Date.now() });
-    save(); render();
+  function check(id, choice) {
+    var e = { id: id, ts: Date.now() };
+    if (choice) e.choice = choice;
+    state.events.push(e); save(); render();
   }
   function undo(id) {
-    for (var i = state.events.length - 1; i >= 0; i--) {
+    for (var i = state.events.length - 1; i >= 0; i--)
       if (state.events[i].id === id) { state.events.splice(i, 1); break; }
-    }
     save(); render();
   }
+
   // ---------- 渲染 ----------
   function el(tag, cls, text) {
     var n = document.createElement(tag);
@@ -268,61 +288,111 @@
   }
 
   function render() {
-    var now = Date.now();
-    var today = dayKey(now);
-    var d = new Date();
-    var week = ["日", "一", "二", "三", "四", "五", "六"][d.getDay()];
+    var now = Date.now(), today = dayKey(now), d = new Date();
     document.getElementById("date").textContent =
-      d.getFullYear() + " 年 " + (d.getMonth() + 1) + " 月 " + d.getDate() + " 日 · 星期" + week;
+      d.getFullYear() + " 年 " + (d.getMonth() + 1) + " 月 " + d.getDate() + " 日 · 星期" +
+      ["日", "一", "二", "三", "四", "五", "六"][d.getDay()];
+
+    // 每个模块还剩几项
+    var remain = {}, lastToday = null;
+    MODULES.forEach(function (m) { remain[m.id] = 0; });
+    ITEMS.forEach(function (item) {
+      var st = statusOf(item, today);
+      if (st.open) remain[item.m]++;
+      if (st.last && dayKey(st.last.ts) === today && (!lastToday || st.last.ts > lastToday)) lastToday = st.last.ts;
+    });
+
+    renderAnchor(remain, lastToday, today);
+    renderTabs(remain);
+
+    var banner = document.getElementById("banner");
+    banner.innerHTML = "";
+    var mName = MODULES.filter(function (m) { return m.id === activeTab; })[0].name;
+    if (remain[activeTab] === 0) banner.appendChild(el("div", "banner", mName + "今天检查完了,这一块可以不用再想了。"));
 
     var list = document.getElementById("list");
     list.innerHTML = "";
-    var openCount = 0, lastToday = null;
-
     ITEMS.forEach(function (item) {
-      var st = statusOf(item, today);
-      if (st.open && !st.adhoc) openCount++;
-      if (st.last && dayKey(st.last.ts) === today && (!lastToday || st.last.ts > lastToday)) lastToday = st.last.ts;
-
-      var cls = "item" + (st.adhoc ? " adhoc" : st.done ? " done" : st.open ? "" : " locked waiting");
-      var row = el(st.open ? "button" : "div", cls);
-      row.appendChild(el("div", "box"));
-      var b = el("div", "body");
-      b.appendChild(el("div", "name", item.name));
-      b.appendChild(el("div", "meta", st.open ? item.hint + " · " + st.label : st.label));
-      row.appendChild(b);
-
-      if (st.open) row.onclick = function () { check(item.id); };
-      if (st.last && now - st.last.ts < UNDO_WINDOW_MS) {
-        var u = el("button", "undo", "撤销");
-        u.onclick = function (ev) { ev.stopPropagation(); undo(item.id); };
-        row.appendChild(u);
-      }
-      list.appendChild(row);
+      if (item.m !== activeTab) return;
+      list.appendChild(renderItem(item, statusOf(item, today), now));
     });
 
-    renderAnchor(openCount, lastToday, today);
     renderHistory(today);
   }
 
-  function renderAnchor(openCount, lastToday, today) {
+  function renderItem(item, st, now) {
+    // 二选一的卡片
+    if (st.choice) {
+      var card = el("div", "item choice");
+      var head = el("div", "choice-head");
+      head.appendChild(el("div", "box"));
+      var hb = el("div", "body");
+      hb.appendChild(el("div", "name", item.name));
+      hb.appendChild(el("div", "meta", st.label));
+      head.appendChild(hb);
+      card.appendChild(head);
+
+      var opts = el("div", "choice-opts");
+      item.choices.forEach(function (c) {
+        var b = el("button", "opt", c.label);
+        b.onclick = function () { check(item.id, c.id); };
+        opts.appendChild(b);
+      });
+      card.appendChild(opts);
+      return card;
+    }
+
+    var cls = "item" + (st.done ? " done" : st.waiting ? " locked waiting" : "");
+    var row = el(st.open ? "button" : "div", cls);
+    row.appendChild(el("div", "box"));
+    var b = el("div", "body");
+    b.appendChild(el("div", "name", item.name));
+    b.appendChild(el("div", "meta", st.open && item.hint ? item.hint + " · " + st.label : st.label));
+    row.appendChild(b);
+
+    if (st.open) row.onclick = function () { check(item.id); };
+    if (st.last && now - st.last.ts < UNDO_WINDOW_MS) {
+      var u = el("button", "undo", "撤销");
+      u.onclick = function (ev) { ev.stopPropagation(); undo(item.id); };
+      row.appendChild(u);
+    }
+    return row;
+  }
+
+  function renderTabs(remain) {
+    var tabs = document.getElementById("tabs");
+    tabs.innerHTML = "";
+    MODULES.forEach(function (m) {
+      var t = el("button", "tab" + (m.id === activeTab ? " on" : ""));
+      t.appendChild(document.createTextNode(m.name));
+      var n = remain[m.id];
+      t.appendChild(el("span", "pill" + (n === 0 ? " ok" : ""), n === 0 ? "✓" : String(n)));
+      t.onclick = function () { activeTab = m.id; state.tab = m.id; save(); render(); };
+      tabs.appendChild(t);
+    });
+  }
+
+  function renderAnchor(remain, lastToday, today) {
     var a = document.getElementById("anchor");
     a.innerHTML = "";
     var opens = state.opens[today] || 1;
+    var total = 0;
+    MODULES.forEach(function (m) { total += remain[m.id]; });
 
-    if (openCount === 0) {
+    if (total === 0) {
       a.className = "anchor calm";
-      a.appendChild(el("h1", null, "今天的检查已经做完了"));
-      var sub = "接下来再想“要不要再看一眼”,那不是新情况,是同一个念头在重播。可以放下了。";
-      if (opens >= 3) {
-        sub = "今天你已经确认过 " + opens + " 次了。是真的做完了 —— 每多看一次,只会让下一次更想看。";
-      }
-      a.appendChild(el("div", "sub", sub));
+      a.appendChild(el("h1", null, "今天的检查已经全部做完了"));
+      a.appendChild(el("div", "sub", opens >= 3
+        ? "今天你已经确认过 " + opens + " 次了。是真的做完了 —— 每多看一次,只会让下一次更想看。"
+        : "接下来再想“要不要再看一眼”,那不是新情况,是同一个念头在重播。可以放下了。"));
       if (lastToday) a.appendChild(el("div", "stamp", "最后一次打勾 " + clock(lastToday)));
     } else {
       a.className = "anchor";
-      a.appendChild(el("h1", null, "今天还有 " + openCount + " 项没检查"));
-      a.appendChild(el("div", "sub", "一次做完,做完就不再看。没亮的项目是今天不归你管的。"));
+      a.appendChild(el("h1", null, "今天还剩 " + total + " 项"));
+      var parts = MODULES.map(function (m) {
+        return m.name + (remain[m.id] === 0 ? " 已完成" : " " + remain[m.id] + " 项");
+      });
+      a.appendChild(el("div", "sub", parts.join(" · ") + "。一次做完,做完就不再看。"));
       if (opens >= 3) a.appendChild(el("div", "stamp", "今天第 " + opens + " 次打开这里"));
     }
   }
@@ -332,6 +402,7 @@
     box.innerHTML = "";
     var names = {};
     ITEMS.forEach(function (i) { names[i.id] = i.name; });
+    Object.keys(RETIRED).forEach(function (k) { names[k] = RETIRED[k]; });
 
     var groups = {}, order = [];
     state.events.slice().reverse().forEach(function (e) {
@@ -339,18 +410,14 @@
       if (!groups[k]) { groups[k] = []; order.push(k); }
       groups[k].push(e);
     });
+    if (!order.length) { box.appendChild(el("div", "log", "还没有记录。")); return; }
 
-    if (!order.length) {
-      box.appendChild(el("div", "log", "还没有记录。"));
-      return;
-    }
     order.slice(0, 14).forEach(function (k) {
       var g = el("div", "day");
       g.appendChild(el("div", "day-label", humanDay(k, today)));
       groups[k].forEach(function (e) {
         var line = el("div", "log");
-        var t = el("b", null, clock(e.ts));
-        line.appendChild(t);
+        line.appendChild(el("b", null, clock(e.ts)));
         line.appendChild(document.createTextNode("  " + (names[e.id] || e.id)));
         g.appendChild(line);
       });
@@ -370,18 +437,14 @@
 
   // ---------- 启动 ----------
   state = load();
+  activeTab = state.tab === "phone" ? "phone" : "home";
   var tk = dayKey(Date.now());
   state.opens[tk] = (state.opens[tk] || 0) + 1;
-  Object.keys(state.opens).forEach(function (k) {
-    if (k < shiftKey(tk, -30)) delete state.opens[k];
-  });
+  Object.keys(state.opens).forEach(function (k) { if (k < shiftKey(tk, -30)) delete state.opens[k]; });
   save();
   render();
 
-  // 从后台切回来时刷新(跨过 04:00 或撤销窗口过期)
-  document.addEventListener("visibilitychange", function () {
-    if (!document.hidden) render();
-  });
+  document.addEventListener("visibilitychange", function () { if (!document.hidden) render(); });
   setInterval(render, 60000);
 })();
 </script>
